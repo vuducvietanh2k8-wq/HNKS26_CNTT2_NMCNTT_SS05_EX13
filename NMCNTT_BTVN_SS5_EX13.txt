@@ -1,0 +1,54 @@
+Phần 1 : CLI vs GUI và cấu trúc câu lệnh
+1.Command :ls
+Options/Flags: -Force
+Argument: C:\Windows\Logs
+2.lí do dùng terminal : đối với các máy chủ clound không có giao diện đồ họa 
+
+Phần 2 – Điều hướng hệ thống file
+3. Relative path: `C:\Users\student\Desktop mkdir quan-ly-sinh-vien
+4.C:\Users\student\Desktop\quan-ly-sinh-vien\src\main.py
+5. ls-Force C:\student\Desktop\quan-ly-sinh-vien\data
+Phần 3 – Thao tác file và thư mục
+
+6. mkdir src, data
+7. mkdir src,data ;new-item src/main.py, src/utils.py,data/input.csv 
+PHẦN 4 
+Câu 1– Log lỗi số 2
+Nguyên nhân: Đây là lỗi No such file or directory / Cannot find path. Có khả năng cao do gõ sai tên thư mục: src bị gõ thành scr.
+
+Cách kiểm tra bằng phím Tab: cd s
+
+Sau đó nhấn Tab để PowerShell tự động hoàn thành tên thư mục. Nếu đúng là src, PowerShell sẽ hoàn thành thành: cd .\src\
+Câu 2– Log lỗi số 3
+Nguyên nhân: Đây là lỗi Access is denied – bị từ chối quyền truy cập. PowerShell hiện tại không có đủ quyền để thực thi hoặc truy cập file setup.ps1.
+
+Cách khắc phục: Mở PowerShell bằng quyền Administrator, sau đó chạy lại: .\setup.ps1
+
+Nếu lỗi liên quan đến chính sách thực thi script, kiểm tra bằng: Get-ExecutionPolicy
+Câu 11 – Log lỗi số 1
+Nguyên nhân: Thư mục old-version còn chứa file hoặc thư mục con. Lệnh rm old-version chưa sử dụng tham số -Recurse nên PowerShell đưa ra cảnh báo.
+
+Lệnh khắc phục: Remove-Item old-version -Recurse -Force
+
+Hoặc: rm old-version -Recurse -Force
+
+-Recurse: xóa cả các file/thư mục con.
+-Force: ép thực hiện thao tác và tránh các yêu cầu xác nhận thông thường.
+Câu 12 – Phân tích Log lỗi số 4
+a) Dòng chứa thông điệp lỗi trực tiếp nhất: FileNotFoundError: [Errno 2] No such file or directory: 'data/input.csv'
+
+b) Từ khóa lỗi (Error Keyword): FileNotFoundError
+
+c) Điều cần kiểm tra tiếp để sửa lỗi:
+
+PowerShell đang đứng tại: C:\Users\student\Desktop\quan-ly-sinh-vien\src
+
+Trong code đang sử dụng: data/input.csv
+
+Do thư mục data nằm cùng cấp với src, không nằm bên trong src, đường dẫn tương đối đúng phải là: ../data/input.csv
+
+Có thể sửa trong main.py thành: data = read_csv("../data/input.csv")
+Kết luận:
+(a) FileNotFoundError: [Errno 2] No such file or directory: 'data/input.csv'
+(b) FileNotFoundError
+(c) Kiểm tra vị trí hiện tại và đường dẫn data/input.csv trong code; sửa thành ../data/input.csv.
